@@ -1,4 +1,4 @@
-re 'yaml'
+require 'yaml'
 require 'json'
 require 'open3'
 
