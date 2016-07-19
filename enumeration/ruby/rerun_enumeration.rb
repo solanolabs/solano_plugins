@@ -172,9 +172,8 @@ class ApiServer
 
   def initialize
     @debug = true
-    @host = ENV['TDDIUM_API_SERVER'] || 'malbani-sandbox.slno.net'
-    #not set by defaul
-    @user_api_key = ENV['API_KEY']
+    @host = ENV['TDDIUM_API_SERVER'] || 'ci.solanolabs.com'
+    @user_api_key = ENV['API_KEY'] # This needs to be supplied
   end
 
   def curl_json_user_key(method, data, url)
