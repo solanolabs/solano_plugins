@@ -1,3 +1,4 @@
+![Solano Labs Logo](https://www.solanolabs.com/assets/solano-labs-1cfeb8f4276fc9294349039f602d5923.png) 
 # Enumeration Scripts
 
 These scripts run at the beginning of your Solano CI Session, determining which tests to run or not to run. This gives you the ability to programatically modify which tests are executed instead of statically defining a set of tests that are executed on each CI build.

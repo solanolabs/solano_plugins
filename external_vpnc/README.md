@@ -1,3 +1,4 @@
+![Solano Labs Logo](https://www.solanolabs.com/assets/solano-labs-1cfeb8f4276fc9294349039f602d5923.png) 
 # Connecting with VPNC
 
 To use ``vpnc`` to connect to external VPNs during builds, please
