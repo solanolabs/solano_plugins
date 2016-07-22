@@ -5,6 +5,7 @@ This repository contains a collection of helpful scripts and examples
 for Solano CI.  Pull requests are encouraged.
 
 - [Enumeration](./enumeration) (programatically control which tests are run in a Solano CI Session)
+- [Update BitBucket Status](./update_bitbucket_status) (update commit build status during Solano CI Session)
 - [VPNC](./external_vpnc) (use vpnc to connect to external VPNs during Solano CI Sessions)
 
 [Solano CI](https://www.solanolabs.com/) is a hosted continuous deployment platform that runs your build
