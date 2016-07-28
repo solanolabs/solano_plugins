@@ -17,4 +17,7 @@ The folders above contain example enumeration scripts - the scripts are organize
   - [Basic Enumeration](./php/basic_enumeration.php) (search project directory for file patterns and add matching tests to the enumeration JSON, ready for parallelized PHP testing)
   - [Enumeration with PHPUnit](https://github.com/solanolabs/enumeration_with_phpunit) (uses a PHPUnit "dry run" to populate the enueration JSON, ready for parallelized PHP testing)
 
+## Python
+  - [Basic Enumeration](./python/basic_enumeration.py) (search project directory for file patterns and add matching tests to the enumeration JSON, ready for parallelized pytest/nosetests testing)
+
 See [the custom enumeration documentation](http://docs.solanolabs.com/Beta/custom-enumeration/) for more info.

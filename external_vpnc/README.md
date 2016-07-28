@@ -1,4 +1,4 @@
-![Solano Labs Logo](https://www.solanolabs.com/assets/solano-labs-1cfeb8f4276fc9294349039f602d5923.png) 
+![Solano Labs Logo](https://www.solanolabs.com/assets/solano-labs-1cfeb8f4276fc9294349039f602d5923.png)
 # Connecting with VPNC
 
 To use ``vpnc`` to connect to external VPNs during builds, please
@@ -23,4 +23,3 @@ hooks:
   pre_setup: ./vpnc-pre_setup.sh  # Install and configure vpnc
   worker_setup: sudo vpnc-connect --debug 3 --local-port 0 ./vpnc.conf  # Connect with vpnc
 ```
-
