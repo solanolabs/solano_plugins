@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Calculate hash of specific files and directories to determine if 
+# Calculate hash of specific files and directories to determine if
 # incremental cache supplied during Solano CI session is current
 # http://docs.solanolabs.com/Beta/incremental-caching/
 
@@ -32,4 +32,4 @@ fi
 
 # Return the calculated hash and also write it to file
 mkdir -p $CACHE_KEY_PATH
-echo $HASH | tee ${CACHE_KEY_PATH}/${NAME}-${TDDIUM_SESSION_ID}
+echo $HASH | tee ${CACHE_KEY_PATH}/${NAME}-current
