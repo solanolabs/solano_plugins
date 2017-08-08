@@ -1,0 +1,38 @@
+# Solano CI example 'solano.yml' configuration file demonstrating requiring
+# a minimal version of Google Chrome (for versions 59 and higher)
+# Chrome v59+ is no longer compatible with Solano CI's default Ubuntu 12.04 LTS workers,
+# so Ubuntu14 (or compatible) custom worker volume must be enabled/activated:
+# https://docs.solanolabs.com/Beta/custom-worker-volumes/
+
+environment:
+  'MIN_CHROME_VER': '60'
+  'MIN_CHROMEDRIVER_VER': '2.31'
+
+hooks:
+  pre_setup: |
+    set -o errexit -o pipefail  # Exit on error
+    # Install/use specific version of chrome if an installed version is lower
+    install_chrome() {
+      wget -O $TMPDIR/google-chrome.deb https://s3.amazonaws.com/solano-backup/src-objects/google-chrome-stable-${MIN_CHROME_VER}-solano.deb
+      sudo dpkg -i $TMPDIR/google-chrome.deb
+      rm -f $TMPDIR/google-chrome.deb
+    }
+    install_chromedriver() {
+      wget -O $TMPDIR/chromedriver.zip https://chromedriver.storage.googleapis.com/${MIN_CHROMEDRIVER_VER}/chromedriver_linux64.zip
+      mkdir -p $HOME/bin # Early in $PATH
+      (cd $HOME/bin && rm -f chromedriver && unzip $TMPDIR/chromedriver.zip)
+      rm -f $TMPDIR/chromedriver.zip
+    }
+    if ! which google-chrome; then
+      install_chrome
+    elif dpkg --compare-versions `google-chrome --version | cut -d" " -f3` lt $MIN_CHROME_VER; then
+      install_chrome
+    fi
+    if ! which chromedriver; then
+      install_chromedriver
+    elif dpkg --compare-versions `chromedriver --version | cut -d " " -f2` lt $MIN_CHROMEDRIVER_VER; then
+      install_chromedriver
+    fi
+tests:
+  - google-chrome --version
+  - chromedriver --version

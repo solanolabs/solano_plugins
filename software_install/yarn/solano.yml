@@ -1,0 +1,58 @@
+# Solano CI 'solano.yml' configuration file demonstrating installing the latest version of 'yarn'
+
+# Specify NodeJS versions: http://docs.solanolabs.com/ConfiguringLanguage/nodejs/
+nodejs:
+  version: '6.5'
+
+# Specify environment variables: http://docs.solanolabs.com/Setup/setting-environment-variables/
+environment:
+  'YARN_VERSION_MIN': '0.27.4' # Minimum version of 'yarn' required
+
+# Build setup http://docs.solanolabs.com/Setup/setup-hooks/
+hooks:
+  pre_setup: |
+    set -o errexit -o pipefail  # Exit on error
+
+    # Install yarn if desired version is not already installed
+    install_yarn() {
+      # Install yarn into $HOME/.yarn
+      curl -o- -L https://yarnpkg.com/install.sh | bash
+    }
+    link_yarn() {
+      # Add 'yarn' early in $PATH
+      mkdir -p $HOME/bin
+      ln -fs $HOME/.yarn/bin/yarn $HOME/bin/yarn
+    }
+    if ! which yarn; then
+      install_yarn
+      link_yarn
+    elif dpkg --compare-versions `yarn --version` lt $YARN_VERSION_MIN; then
+      install_yarn
+      link_yarn
+    elif [ -x $HOME/bin/yarn ]; then
+      if dpkg --compare-versions `$HOME/bin/yarn --version` ge $YARN_VERSION_MIN; then
+        link_yarn
+      else
+        install_yarn
+        link_yarn
+      fi
+    fi
+    echo "YARN VERSION: `yarn --version`"
+
+    # Install packages node packages
+    yarn install
+
+# Customize cache settings to include yarn. If other language/package dependencies should be cached,
+# they should be included in the below. See http://docs.solanolabs.com/Setup/caching-dependencies/
+cache:
+  key_paths:
+    - package.json
+    #- yarn.lock  # Uncoment if 'yarn.lock' is included in the repo
+  save_paths:
+    - REPO/node_modules  # "local" package install directory
+    - HOME/.cache/yarn   # Yarn "global" package install directory
+    - HOME/.yarn         # Yarn bin/lib install directory
+
+# Specify tests to run. See http://docs.solanolabs.com/RunningBuild/arbitrary-commands-as-build-steps/
+#tests:
+#  - yarn run test-ci
